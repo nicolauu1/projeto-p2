@@ -1,10 +1,16 @@
-const enderecosSalvos = [];
+const end = [];
 
-function consultarEndere() {
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('#pesquisar').addEventListener('click', pesquisarEnd);
+    document.querySelector('.btn-update').addEventListener('click', atualizarDados);
+    document.querySelector('.btn-delete').addEventListener('click', deletarDados);
+});
+
+function pesquisarEnd() {
     const cep = document.querySelector('#cep').value.trim();
     
     if (cep.length !== 9) {
-        alert("CEP inválido!");
+        alert("Formato para CEP invalido.");
         return;
     }
 
@@ -14,7 +20,7 @@ function consultarEndere() {
 }
 
 function fetchEndereco(cep) {
-    const url = `https://cdn.apicep.com/file/apicep/${cep}.json`;
+    const url = `https://brasilapi.com.br/api/cep/v2/${cep}.json`;
     return fetch(url).then(response => response.json());
 }
 
@@ -25,43 +31,43 @@ function mostrarEnd(dados) {
         resultado.innerHTML = "Não foi possível encontrar esse CEP";
     } else {
         resultado.innerHTML = `<b><p>RESULTADO ⬇️ :</p></b> 
-            <p>${dados.address}, ${dados.city} - ${dados.state}, CEP: ${dados.code}</p>`;
+            <p>${dados.street}, ${dados.neighborhood}, ${dados.city} - ${dados.state}, CEP: ${dados.cep}</p>`;
         salvarEndereco(dados);
     }
 }
 
 function salvarEndereco(dados) {
-    const index = enderecosSalvos.findIndex(endereco => endereco.code === dados.code);
+    const index = end.findIndex(endereco => endereco.cep === dados.cep);
     if (index === -1) {
-        enderecosSalvos.push(dados);
+        end.push(dados);
     } else {
-        enderecosSalvos[index] = dados;
+        end[index] = dados;
     }
     atualizarListaEnderecos();
 }
 
 function atualizarListaEnderecos() {
-    const lista = document.getElementById('enderecos-lista');
+    const lista = document.getElementById('lista-salva');
     lista.innerHTML = '';
 
-    enderecosSalvos.forEach((endereco, index) => {
+    end.forEach((endereco, index) => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${endereco.address}, ${endereco.city} - ${endereco.state}, CEP: ${endereco.code}`;
+        listItem.textContent = `${endereco.street}, ${endereco.neighborhood}, ${endereco.city} - ${endereco.state}, CEP: ${endereco.cep}`;
         listItem.id = `endereco-${index}`;
         lista.appendChild(listItem);
     });
 }
 
-function atualizarEndereco() {
+function atualizarDados() {
     const cep = document.getElementById('update-cep').value.trim();
 
     fetchEndereco(cep).then(dados => {
         if (dados.erro) {
             alert("CEP inválido!");
         } else {
-            const index = enderecosSalvos.findIndex(endereco => endereco.code === cep);
+            const index = end.findIndex(endereco => endereco.cep === cep);
             if (index > -1) {
-                enderecosSalvos[index] = dados;
+                end[index] = dados;
                 atualizarListaEnderecos();
             } else {
                 alert("Endereço não foi encontrado para ser atualizado");
@@ -70,12 +76,12 @@ function atualizarEndereco() {
     });
 }
 
-function deletarEndereco() {
+function deletarDados() {
     const cep = document.getElementById('delete-cep').value.trim();
-    const index = enderecosSalvos.findIndex(endereco => endereco.code === cep);
+    const index = end.findIndex(endereco => endereco.cep === cep);
 
     if (index > -1) {
-        enderecosSalvos.splice(index, 1);
+        end.splice(index, 1);
         atualizarListaEnderecos();
     } else {
         alert("O Endereço não foi encontrado para ser deletado.");
