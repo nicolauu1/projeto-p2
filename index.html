@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Projeto P2 API</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Consultar</h1>
+
+        <div class="container">
+            <div class="box">
+                <label for="cep">Digite seu CEP:</label>
+                <input type="text" id="cep" placeholder="XXXXX-XXX">
+                <button onclick="consultarEndere()">Pesquisar</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="box" id="resultado">
+                <p class="pre-pesquisa">Av. Senador Feijó, 350 - Vila Matias, Santos - SP, 11015-502</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="box">
+                <h2>Buscas Recentes</h2>
+                <ul id="enderecos-lista"></ul>
+            </div>
+        </div>
+
+        <div class="container side-by-side">
+            <div class="box">
+                <h2>Atualizar</h2>
+                <input type="text" id="update-cep" placeholder="XXXXX-XXX">
+                <button onclick="atualizarEndereco()" class="btn-update">Atualizar</button>
+            </div>
+
+            <div class="box">
+                <h2>Deletar</h2>
+                <input type="text" id="delete-cep" placeholder="XXXXX-XXX">
+                <button onclick="deletarEndereco()" class="btn-delete">Deletar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
