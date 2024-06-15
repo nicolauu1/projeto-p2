@@ -14,7 +14,7 @@
             <div class="box">
                 <label for="cep">Digite seu CEP:</label>
                 <input type="text" id="cep" placeholder="XXXXX-XXX">
-                <button onclick="consultarEndere()">Pesquisar</button>
+                <button onclick="pesquisarEnd()">Pesquisar</button>
             </div>
         </div>
 
@@ -27,7 +27,7 @@
         <div class="container">
             <div class="box">
                 <h2>Buscas Recentes</h2>
-                <ul id="enderecos-lista"></ul>
+                <ul id="lista-salva"></ul>
             </div>
         </div>
 
@@ -35,13 +35,13 @@
             <div class="box">
                 <h2>Atualizar</h2>
                 <input type="text" id="update-cep" placeholder="XXXXX-XXX">
-                <button onclick="atualizarEndereco()" class="btn-update">Atualizar</button>
+                <button onclick="atualizarDados()" class="btn-update">Atualizar</button>
             </div>
 
             <div class="box">
                 <h2>Deletar</h2>
                 <input type="text" id="delete-cep" placeholder="XXXXX-XXX">
-                <button onclick="deletarEndereco()" class="btn-delete">Deletar</button>
+                <button onclick="deletarDados()" class="btn-delete">Deletar</button>
             </div>
         </div>
     </div>
